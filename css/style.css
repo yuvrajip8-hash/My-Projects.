@@ -1,0 +1,448 @@
+/* =========================================
+   1. BLEEDING-EDGE SETUP & VARIABLES
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Inter:wght@400;500&display=swap');
+
+:root {
+    /* High-End Light Theme */
+    --bg-main: #FAFAFB;
+    --bg-surface: #FFFFFF;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --border-color: rgba(0, 0, 0, 0.06);
+    
+    /* Vibrant, sophisticated gradient accent inspired by image_0.png */
+    --accent-color: #00D8FF;
+    --accent-gradient: linear-gradient(135deg, #00D8FF 0%, #38BDF8 50%, #6366f1 100%);
+    --accent-glow: rgba(0, 216, 255, 0.2);
+    
+    /* Layered, ultra-smooth shadows */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-lg: 0 24px 48px -12px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04);
+    --shadow-hover: 0 32px 64px -12px rgba(0, 216, 255, 0.15), 0 8px 24px rgba(0, 216, 255, 0.1);
+    
+    --radius-pill: 100px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+}
+
+/* Premium "Midnight Slate" Dark Theme inspired by image_0.png */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-main: #0B0F19; /* Deep, rich tech slate */
+        --bg-surface: #131A2B;
+        --text-primary: #F9FAFB;
+        --text-secondary: #9CA3AF;
+        --border-color: rgba(255, 255, 255, 0.08);
+        --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+        --shadow-lg: 0 24px 48px -12px rgba(0,0,0,0.6);
+        --shadow-hover: 0 32px 64px -12px rgba(0, 216, 255, 0.25), 0 8px 24px rgba(0, 216, 255, 0.15);
+    }
+}
+
+/* =========================================
+   2. KEYFRAME ANIMATIONS
+   ========================================= */
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes spinGradient {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes textShine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* Base Styles & Smooth Rendering */
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body { 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+    color: var(--text-primary);
+    background-color: var(--bg-main);
+    margin: 0; 
+    padding: 0; 
+    line-height: 1.6; 
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Immersive background glow elements */
+body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+    animation: pulseGlow 8s ease-in-out infinite;
+}
+
+body::before {
+    width: 600px;
+    height: 600px;
+    background: rgba(0, 216, 255, 0.1);
+    top: -200px;
+    left: -100px;
+}
+
+body::after {
+    width: 500px;
+    height: 500px;
+    background: rgba(56, 189, 248, 0.1);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: 4s;
+}
+
+section { 
+    padding: 120px 20px; 
+    max-width: 1100px; 
+    margin: auto; 
+    text-align: center; 
+    position: relative;
+    z-index: 1;
+}
+
+h1, h2, h3, .project-title {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* =========================================
+   3. FLOATING PILL NAVIGATION
+   ========================================= */
+nav { 
+    background: rgba(255, 255, 255, 0.7); 
+    backdrop-filter: blur(20px); 
+    -webkit-backdrop-filter: blur(20px);
+    padding: 12px 32px; 
+    text-align: center; 
+    position: sticky;
+    top: 24px;
+    z-index: 100;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    nav { background: rgba(19, 26, 43, 0.7); }
+}
+
+nav a { 
+    color: var(--text-secondary); 
+    text-decoration: none; 
+    margin: 0 16px; 
+    font-weight: 600; 
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+/* Nav underline effect */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--accent-gradient);
+    transition: width 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--text-primary);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* =========================================
+   4. HERO / HOME SECTION
+   ========================================= */
+header { 
+    padding: 180px 20px 120px; 
+    text-align: center; 
+    position: relative;
+}
+
+/* Subtle glowing overline badge */
+header::before {
+    content: "Portfolio Showcase";
+    display: block;
+    width: fit-content;
+    margin: 0 auto 24px;
+    padding: 8px 16px;
+    background: rgba(0, 216, 255, 0.1);
+    color: var(--accent-color);
+    border-radius: var(--radius-pill);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    box-shadow: var(--shadow-glow);
+}
+
+header h1 { 
+    font-size: clamp(3rem, 5vw, 4.5rem); 
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    margin: 0 0 20px 0; 
+    color: var(--text-primary);
+}
+
+header h2 { 
+    font-size: 1.25rem;
+    font-weight: 500;
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--accent-gradient);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: textShine 6s linear infinite;
+}
+
+/* =========================================
+   5. PROFILE & REUSABLE LAYOUT
+   ========================================= */
+.flex-container { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 32px; 
+    margin-top: 60px;
+}
+
+/* Spinning border profile image */
+.profile-wrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.profile-wrapper::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: conic-gradient(transparent 70%, var(--accent-color), #38BDF8);
+    animation: spinGradient 4s linear infinite;
+}
+
+.profile-img { 
+    width: 152px; 
+    height: 152px;
+    object-fit: cover; 
+    border-radius: var(--radius-pill); 
+    position: relative;
+    z-index: 1;
+    border: 4px solid var(--bg-main);
+    box-shadow: var(--shadow-md);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-img:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 0 0 4px var(--bg-main), 0 0 0 12px var(--accent-glow);
+}
+
+.about-text {
+    max-width: 600px; 
+    text-align: left;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+.skill-badge { 
+    background: var(--bg-surface); 
+    color: var(--text-primary); 
+    padding: 10px 24px; 
+    border-radius: var(--radius-pill); 
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+}
+
+.skill-badge:hover {
+    transform: translateY(-4px);
+    background: var(--accent-gradient);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 10px 20px var(--accent-glow);
+}
+
+/* Premium Card Design with inner border reflection */
+.card { 
+    background: var(--bg-surface);
+    padding: 40px; 
+    width: 320px; 
+    border-radius: var(--radius-lg); 
+    text-align: left; 
+    position: relative;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(0, 216, 255, 0.3);
+}
+
+.project-title {
+    color: var(--text-primary);
+    margin: 0 0 12px 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.card p { margin-bottom: 24px; color: var(--text-muted); }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--text-primary);
+    color: var(--bg-main);
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: var(--accent-gradient);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px var(--accent-glow);
+}
+
+/* =========================================
+   6. CONTACT FORM & BUTTONS
+   ========================================= */
+form { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+input, textarea { 
+    width: 100%; 
+    padding: 18px 24px; 
+    margin-bottom: 20px; 
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-surface);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box; 
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px var(--accent-glow), var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 160px;
+    border-radius: var(--radius-md);
+}
+
+button { 
+    background: var(--text-primary); 
+    color: var(--bg-main); 
+    padding: 18px 36px; 
+    border: none; 
+    border-radius: var(--radius-pill);
+    cursor: pointer; 
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    width: 100%;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+button:hover {
+    background: var(--accent-gradient);
+    color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px var(--accent-glow);
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+footer { 
+    color: var(--text-secondary); 
+    text-align: center; 
+    padding: 60px 20px; 
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 60px;
+    position: relative;
+    z-index: 1;
+}
+
+footer a { 
+    color: var(--text-primary); 
+    text-decoration: none; 
+    margin: 0 16px; 
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+footer a:hover { 
+    color: var(--accent-color); 
+}
